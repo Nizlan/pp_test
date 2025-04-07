@@ -9,7 +9,7 @@ part of 'currency_dto.dart';
 CurrencyDto _$CurrencyDtoFromJson(Map<String, dynamic> json) => CurrencyDto(
   id: json['id'] as String,
   symbol: json['symbol'] as String,
-  currencySymbol: json['currencySymbol'] as String,
+  currencySymbol: json['currencySymbol'] as String?,
   type: json['type'] as String,
   rateUsd: json['rateUsd'] as String,
 );

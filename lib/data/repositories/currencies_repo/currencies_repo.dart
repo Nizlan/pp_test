@@ -1,4 +1,4 @@
-import '../../domain/entities/currency.dart';
+import '../../../domain/entities/currency.dart';
 
 abstract class CurrenciesRepo {
   Future<List<Currency>> getAllCurrencies();

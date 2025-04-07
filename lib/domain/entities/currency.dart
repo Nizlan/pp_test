@@ -1,7 +1,7 @@
 class Currency {
   final String id;
   final String symbol;
-  final String currencySymbol;
+  final String? currencySymbol;
   final String type;
   final String rateUsd;
 

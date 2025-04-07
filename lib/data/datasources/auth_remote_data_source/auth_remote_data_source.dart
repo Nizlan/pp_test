@@ -1,3 +1,3 @@
 abstract class AuthRemoteDataSource {
-  Future<bool> tryLogin(String email, String password);
+  Future<String?> tryLogin(String email, String password);
 }
