@@ -1,16 +1,5 @@
-# pp_test
+## Развертывание
 
-A new Flutter project.
+Приложение развернуто и доступно как веб-приложение по адресу [https://perfectpaneldemo.web.app/](https://perfectpaneldemo.web.app/). Его также можно установить как(PWA) из браузера.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Кроме того, версию приложения для Android можно установить из файла `app.apk`, расположенного в корневой папке этого проекта.
