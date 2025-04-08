@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../data/repositories/auth_repo/auth_repo.dart';
 import '../../auth_page/view/auth_page.dart';
 import '../../convert_page/view/convert_page.dart';
 import '../../rates_page/cubit/rates_cubit.dart';
@@ -29,7 +30,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => MainPageCubit(),
+      create: (context) => MainPageCubit(context.read<AuthRepo>()),
       child: BlocConsumer<MainPageCubit, MainPageState>(
         listener: (context, state) {
           if (state is MainPageLoggedOut) {

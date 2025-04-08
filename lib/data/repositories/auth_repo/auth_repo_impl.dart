@@ -15,10 +15,16 @@ class AuthRepoImpl extends AuthRepo {
   });
 
   @override
+  Future<void> init() async {
+    final user = await authLocalDataSource.getCurrentUser();
+    _user = user;
+  }
+
+  @override
   Future<String?> tryLogin(String email, String password) async {
     final result = await authRemoteDataSource.tryLogin(email, password);
-    if (result != null) {
-      _user = User(email: email);
+    if (result == null) {
+      await authLocalDataSource.saveAuthData(email, password);
     }
     return result;
   }

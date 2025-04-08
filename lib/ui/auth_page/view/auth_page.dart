@@ -12,12 +12,19 @@ class AuthPage extends StatelessWidget {
     final emailController = TextEditingController();
     final passwordController = TextEditingController();
     return BlocProvider(
-      create: (context) => AuthPageCubit(context.read<AuthRepo>()),
+      create: (context) => AuthPageCubit(context.read<AuthRepo>())..init(),
       child: BlocConsumer<AuthPageCubit, AuthPageState>(
         listener: (context, state) {
           if (state is AuthPageSuccess) {
             Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => const MainPage()),
+              state.animateTransition
+                  ? MaterialPageRoute(builder: (context) => const MainPage())
+                  : PageRouteBuilder(
+                    pageBuilder:
+                        (context, animation1, animation2) => const MainPage(),
+                    transitionDuration: Duration.zero,
+                    reverseTransitionDuration: Duration.zero,
+                  ),
             );
           }
           if (state is AuthPageError) {
@@ -27,6 +34,11 @@ class AuthPage extends StatelessWidget {
           }
         },
         builder: (context, state) {
+          if (state is AuthPageInitializing) {
+            return const Scaffold(
+              body: Center(child: CircularProgressIndicator()),
+            );
+          }
           return Scaffold(
             body: Center(
               child: Padding(
@@ -59,32 +71,28 @@ class AuthPage extends StatelessWidget {
                     SizedBox(
                       width: MediaQuery.of(context).size.width,
                       height: 50,
-                      child: BlocBuilder<AuthPageCubit, AuthPageState>(
-                        builder: (context, state) {
-                          return ElevatedButton(
-                            onPressed: () {
-                              context.read<AuthPageCubit>().tryLogin(
-                                emailController.text,
-                                passwordController.text,
-                              );
-                            },
-                            style: ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(vertical: 16),
-                              backgroundColor: const Color(0xFF0166FF),
-                              foregroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                            ),
-                            child:
-                                state is AuthPageLoading
-                                    ? SizedBox.square(
-                                      dimension: 20,
-                                      child: const CircularProgressIndicator(),
-                                    )
-                                    : const Text('Sign in'),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          context.read<AuthPageCubit>().tryLogin(
+                            emailController.text,
+                            passwordController.text,
                           );
                         },
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          backgroundColor: const Color(0xFF0166FF),
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),
+                        child:
+                            state is AuthPageLoading
+                                ? SizedBox.square(
+                                  dimension: 20,
+                                  child: const CircularProgressIndicator(),
+                                )
+                                : const Text('Sign in'),
                       ),
                     ),
                   ],

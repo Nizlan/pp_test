@@ -1,6 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../models/user_auth_data_dto/user_auth_data_dto.dart';
+import '../../models/user_dto/user_dto.dart';
 import 'auth_local_data_source.dart';
 
 class AuthLocalDataSourceSharedPref extends AuthLocalDataSource {
@@ -27,5 +28,15 @@ class AuthLocalDataSourceSharedPref extends AuthLocalDataSource {
   @override
   Future<void> signOut() async {
     await _sharedPreferences.remove('auth_data');
+  }
+
+  @override
+  Future<UserDto?> getCurrentUser() async {
+    final json = _sharedPreferences.getString('auth_data');
+    if (json == null) {
+      return null;
+    }
+    final userAuthData = UserAuthDataDto.fromJson(json);
+    return UserDto(email: userAuthData.email);
   }
 }
