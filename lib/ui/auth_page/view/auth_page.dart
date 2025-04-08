@@ -88,9 +88,15 @@ class AuthPage extends StatelessWidget {
                         ),
                         child:
                             state is AuthPageLoading
-                                ? SizedBox.square(
-                                  dimension: 20,
-                                  child: const CircularProgressIndicator(),
+                                ? Center(
+                                  child: const CircularProgressIndicator(
+                                    constraints: BoxConstraints(
+                                      maxHeight: 20,
+                                      maxWidth: 20,
+                                      minHeight: 20,
+                                      minWidth: 20,
+                                    ),
+                                  ),
                                 )
                                 : const Text('Sign in'),
                       ),

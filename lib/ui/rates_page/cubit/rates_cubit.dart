@@ -15,7 +15,7 @@ class RatesCubit extends Cubit<RatesState> {
 
   Timer? _timer;
 
-  setUpdatesTimer() {
+  _setUpdatesTimer() {
     _timer = Timer.periodic(const Duration(seconds: 30), (timer) {
       updateRates();
     });
@@ -23,7 +23,7 @@ class RatesCubit extends Cubit<RatesState> {
 
   void init() {
     _fetchRates();
-    setUpdatesTimer();
+    _setUpdatesTimer();
   }
 
   Future<void> _fetchRates() async {

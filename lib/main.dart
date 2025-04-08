@@ -43,22 +43,13 @@ class MyApp extends StatelessWidget {
               ),
         ),
       ],
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider<RatesCubit>(
-            create:
-                (context) =>
-                    RatesCubit(currenciesRepo: context.read<CurrenciesRepo>()),
-          ),
-        ],
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Flutter Demo',
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          ),
-          home: const AuthPage(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         ),
+        home: const AuthPage(),
       ),
     );
   }

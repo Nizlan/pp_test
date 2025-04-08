@@ -2,35 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../data/repositories/auth_repo/auth_repo.dart';
+import '../../../data/repositories/currencies_repo/currencies_repo.dart';
 import '../../auth_page/view/auth_page.dart';
 import '../../convert_page/view/convert_page.dart';
 import '../../rates_page/cubit/rates_cubit.dart';
 import '../../rates_page/view/rates_page.dart';
 import '../cubit/main_page_cubit.dart';
 
-class MainPage extends StatefulWidget {
+class MainPage extends StatelessWidget {
   const MainPage({super.key});
 
-  @override
-  State<MainPage> createState() => _MainPageState();
-}
-
-class _MainPageState extends State<MainPage> {
   static const List<Widget> _widgetOptions = <Widget>[
     RatesPage(),
     ConvertPage(),
   ];
 
   @override
-  void initState() {
-    super.initState();
-    context.read<RatesCubit>().init();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => MainPageCubit(context.read<AuthRepo>()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<MainPageCubit>(
+          create: (context) => MainPageCubit(context.read<AuthRepo>()),
+        ),
+        BlocProvider<RatesCubit>(
+          create:
+              (context) =>
+                  RatesCubit(currenciesRepo: context.read<CurrenciesRepo>())
+                    ..init(),
+        ),
+      ],
       child: BlocConsumer<MainPageCubit, MainPageState>(
         listener: (context, state) {
           if (state is MainPageLoggedOut) {
