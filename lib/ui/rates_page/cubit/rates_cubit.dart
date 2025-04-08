@@ -28,14 +28,21 @@ class RatesCubit extends Cubit<RatesState> {
 
   Future<void> _fetchRates() async {
     emit(RatesLoading());
-    final rates = await currenciesRepo.getAllCurrencies();
-    emit(RatesLoaded(rates: rates));
+    try {
+      final rates = await currenciesRepo.getAllCurrencies();
+      emit(RatesLoaded(rates: rates));
+    } catch (e) {
+      emit(RatesLoading(error: e.toString()));
+    }
   }
 
   Future<void> updateRates() async {
-    final rates = await currenciesRepo.getAllCurrencies();
-
-    emit(RatesLoaded(rates: rates));
+    try {
+      final rates = await currenciesRepo.getAllCurrencies();
+      emit(RatesLoaded(rates: rates));
+    } catch (e) {
+      emit(state.copyWith(error: e.toString()));
+    }
   }
 
   @override

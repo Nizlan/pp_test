@@ -28,7 +28,15 @@ class _ConvertPageState extends State<ConvertPage> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return BlocBuilder<RatesCubit, RatesState>(
+    return BlocConsumer<RatesCubit, RatesState>(
+      listenWhen: (previous, current) => previous.error != current.error,
+      listener: (context, state) {
+        if (state.error != null) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(state.error!)));
+        }
+      },
       builder: (context, state) {
         if (state is RatesLoading || state is RatesInitial) {
           return const Center(child: CircularProgressIndicator());
