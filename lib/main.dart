@@ -11,7 +11,6 @@ import 'data/repositories/auth_repo/auth_repo_impl.dart';
 import 'data/repositories/currencies_repo/currencies_repo.dart';
 import 'data/repositories/currencies_repo/currencies_repo_impl.dart';
 import 'ui/auth_page/view/auth_page.dart';
-import 'ui/rates_page/cubit/rates_page_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,22 +44,12 @@ class MyApp extends StatelessWidget {
               ),
         ),
       ],
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider<RatesPageCubit>(
-            create:
-                (context) => RatesPageCubit(
-                  currenciesRepo: context.read<CurrenciesRepo>(),
-                ),
-          ),
-        ],
-        child: MaterialApp(
-          title: 'Flutter Demo',
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          ),
-          home: const AuthPage(),
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         ),
+        home: const AuthPage(),
       ),
     );
   }
