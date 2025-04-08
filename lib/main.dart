@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'data/datasources/auth_local_data_source/auth_local_data_source_impl.dart';
@@ -15,7 +14,6 @@ import 'ui/rates_page/cubit/rates_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load(fileName: ".env");
   final sharedPreferences = await SharedPreferences.getInstance();
   runApp(MyApp(sharedPreferences: sharedPreferences));
 }
