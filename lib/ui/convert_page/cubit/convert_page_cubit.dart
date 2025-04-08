@@ -15,7 +15,7 @@ class ConvertPageCubit extends Cubit<ConvertPageState> {
   static final _commissionPercent = Decimal.parse('1.03');
 
   void init(List<Currency> currencies) {
-    final (String result, String resultWithCommission) = convert(
+    final (String result, String resultWithCommission) = _convert(
       _initAmount,
       currencies.firstWhere((c) => c.symbol == _initFromCurrency),
       currencies.firstWhere((c) => c.symbol == _initToCurrency),
@@ -38,7 +38,7 @@ class ConvertPageCubit extends Cubit<ConvertPageState> {
     required Currency fromCurrency,
     required Currency toCurrency,
   }) {
-    final (String result, String resultWithCommission) = convert(
+    final (String result, String resultWithCommission) = _convert(
       amount,
       fromCurrency,
       toCurrency,
@@ -55,7 +55,7 @@ class ConvertPageCubit extends Cubit<ConvertPageState> {
     );
   }
 
-  (String result, String resultWithCommission) convert(
+  (String result, String resultWithCommission) _convert(
     String amount,
     Currency fromCurrency,
     Currency toCurrency,
