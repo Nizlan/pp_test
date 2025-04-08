@@ -6,7 +6,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'data/datasources/auth_local_data_source/auth_local_data_source_impl.dart';
 import 'data/datasources/auth_remote_data_source/auth_remote_data_source_impl.dart';
 import 'data/datasources/currency_remote_data_source/currency_remote_data_source_mock.dart';
-import 'data/datasources/currency_remote_data_source/currency_remote_data_source_impl.dart';
 import 'data/repositories/auth_repo/auth_repo.dart';
 import 'data/repositories/auth_repo/auth_repo_impl.dart';
 import 'data/repositories/currencies_repo/currencies_repo.dart';

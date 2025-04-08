@@ -69,6 +69,17 @@ class ConvertPageCubit extends Cubit<ConvertPageState> {
     );
     final resultWithCommissionDecimal = resultDecimal * _commissionPercent;
 
-    return (resultDecimal.toString(), resultWithCommissionDecimal.toString());
+    bool fiat = toCurrency.type == 'fiat';
+    final int scale = fiat ? 2 : 18;
+
+    final roundedResult = resultDecimal.floor(scale: scale);
+    final roundedResultWithCommission = resultWithCommissionDecimal.floor(
+      scale: scale,
+    );
+
+    return (
+      roundedResult.toStringAsFixed(scale),
+      roundedResultWithCommission.toStringAsFixed(scale),
+    );
   }
 }

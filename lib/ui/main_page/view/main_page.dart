@@ -54,18 +54,15 @@ class _MainPageState extends State<MainPage> {
                       )
                       : null,
               title: Text(appBarTitle),
-              centerTitle: true,
-              actions:
-                  selectedIndex == 0
-                      ? [
-                        IconButton(
-                          icon: const Icon(Icons.arrow_forward_ios),
-                          onPressed: () {
-                            context.read<MainPageCubit>().onLoggedOut();
-                          },
-                        ),
-                      ]
-                      : null,
+              centerTitle: selectedIndex == 0 ? true : false,
+              actions: [
+                IconButton(
+                  icon: const Icon(Icons.arrow_forward_ios),
+                  onPressed: () {
+                    context.read<MainPageCubit>().onLoggedOut();
+                  },
+                ),
+              ],
               automaticallyImplyLeading: false,
             ),
             body: IndexedStack(index: selectedIndex, children: _widgetOptions),
