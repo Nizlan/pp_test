@@ -8,6 +8,7 @@ import 'currency_remote_data_source.dart';
 class CurrencyRemoteDataSourceMock extends CurrencyRemoteDataSource {
   @override
   Future<List<CurrencyDto>> fetchAllCurrenciesFromApi() async {
+    await Future.delayed(const Duration(seconds: 1));
     final List<dynamic> currenciesData = mockList["data"] as List<dynamic>;
     final currencies =
         currenciesData.map((e) => CurrencyDto.fromJson(e)).toList();
