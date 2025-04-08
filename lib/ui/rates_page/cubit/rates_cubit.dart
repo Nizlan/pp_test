@@ -7,35 +7,35 @@ import 'package:meta/meta.dart';
 import '../../../data/repositories/currencies_repo/currencies_repo.dart';
 import '../../../domain/entities/currency.dart';
 
-part 'rates_page_state.dart';
+part 'rates_state.dart';
 
-class RatesPageCubit extends Cubit<RatesPageState> {
+class RatesCubit extends Cubit<RatesState> {
   final CurrenciesRepo currenciesRepo;
-  RatesPageCubit({required this.currenciesRepo}) : super(RatesPageInitial());
+  RatesCubit({required this.currenciesRepo}) : super(RatesInitial());
 
   Timer? _timer;
 
   setUpdatesTimer() {
-    _timer = Timer.periodic(const Duration(seconds: 10), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 30), (timer) {
       updateRates();
     });
   }
 
   void init() {
-    fetchRates();
+    _fetchRates();
     setUpdatesTimer();
   }
 
-  Future<void> fetchRates() async {
-    emit(RatesPageLoading());
+  Future<void> _fetchRates() async {
+    emit(RatesLoading());
     final rates = await currenciesRepo.getAllCurrencies();
-    emit(RatesPageLoaded(rates: rates));
+    emit(RatesLoaded(rates: rates));
   }
 
   Future<void> updateRates() async {
     final rates = await currenciesRepo.getAllCurrencies();
 
-    emit(RatesPageLoaded(rates: rates));
+    emit(RatesLoaded(rates: rates));
   }
 
   @override

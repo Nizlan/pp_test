@@ -17,4 +17,12 @@ class CurrencyDto extends Currency {
   factory CurrencyDto.fromJson(Map<String, dynamic> json) =>
       _$CurrencyDtoFromJson(json);
   Map<String, dynamic> toJson() => _$CurrencyDtoToJson(this);
+
+  CurrencyDto copyWith({String? rateUsd}) => CurrencyDto(
+    id: id,
+    symbol: symbol,
+    currencySymbol: currencySymbol,
+    type: type,
+    rateUsd: rateUsd ?? this.rateUsd,
+  );
 }

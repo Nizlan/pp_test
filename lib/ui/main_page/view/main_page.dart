@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../auth_page/view/auth_page.dart';
 import '../../convert_page/view/convert_page.dart';
-import '../../rates_page/cubit/rates_page_cubit.dart';
+import '../../rates_page/cubit/rates_cubit.dart';
 import '../../rates_page/view/rates_page.dart';
 import '../cubit/main_page_cubit.dart';
 
@@ -19,6 +19,12 @@ class _MainPageState extends State<MainPage> {
     RatesPage(),
     ConvertPage(),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<RatesCubit>().init();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +49,7 @@ class _MainPageState extends State<MainPage> {
                       ? IconButton(
                         icon: const Icon(Icons.refresh),
                         onPressed: () {
-                          context.read<RatesPageCubit>().updateRates();
+                          context.read<RatesCubit>().updateRates();
                         },
                       )
                       : null,
